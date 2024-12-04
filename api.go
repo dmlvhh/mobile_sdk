@@ -274,6 +274,7 @@ func (c *Client) ChangeSimStatusBatch(r *SimBasicInfoBatchReq) (*ChangeSimStatus
 
 }
 
+// SimCardInfoBatch 码号信息批量查询
 func (c *Client) SimCardInfoBatch(r *SimBasicInfoBatchReq) (*SimBasicInfoBatchRes, error) {
 	path := "/query/sim-card-info/batch"
 
