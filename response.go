@@ -63,6 +63,14 @@ type SimBasicInfoBatchRes struct {
 	} `json:"result"`
 }
 
+type ChangeSimStatusBatchRes struct {
+	Status  string `json:"status"`
+	Message string `json:"message"`
+	Result  []struct {
+		JobId string `json:"jobId"`
+	} `json:"result"`
+}
+
 type SimPlatformBatchRes struct {
 	Status  string `json:"status"`
 	Message string `json:"message"`

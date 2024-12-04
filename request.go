@@ -17,9 +17,11 @@ type SimBasicInfoReq struct {
 	OperType string `json:"operType,omitempty"`
 }
 type SimBasicInfoBatchReq struct {
-	Transid string `json:"transid"`
-	Token   string `json:"token"`
-	Msisdns string `json:"msisdns,omitempty"`
-	Iccids  string `json:"iccids,omitempty"`
-	Imsis   string `json:"imsis,omitempty"`
+	Transid  string `json:"transid"`
+	Token    string `json:"token"`
+	Msisdns  string `json:"msisdns,omitempty"`
+	Iccids   string `json:"iccids,omitempty"`
+	Imsis    string `json:"imsis,omitempty"`
+	OperType string `json:"operType,omitempty"`
+	Reason   string `json:"reason,omitempty"`
 }

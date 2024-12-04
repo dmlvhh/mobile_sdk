@@ -249,7 +249,31 @@ func (c *Client) ChangeSimStatus(r *SimBasicInfoReq) (*ChangeSimStatusRes, error
 
 }
 
-// SimCardInfoBatch 码号信息批量查询
+// ChangeSimStatusBatch 物联卡状态变更批量办理
+func (c *Client) ChangeSimStatusBatch(r *SimBasicInfoBatchReq) (*ChangeSimStatusBatchRes, error) {
+	path := "change/sim-status/batch"
+
+	reqBody, _ := json.MarshalIndent(r, "", "  ")
+	fmt.Printf("Request Body: %s\n", reqBody)
+	resp, err := c.DoWithoutToken("POST", path, r, "")
+	if err != nil {
+		return nil, fmt.Errorf("failed to call SimBasicInfo API: %w", err)
+	}
+	// 解析API响应
+	var apiResp ChangeSimStatusBatchRes
+	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
+		return nil, fmt.Errorf("failed to parse response body: %w", err)
+	}
+
+	// 检查API返回的状态码
+	if apiResp.Status != "0" {
+		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+	}
+
+	return &apiResp, nil
+
+}
+
 func (c *Client) SimCardInfoBatch(r *SimBasicInfoBatchReq) (*SimBasicInfoBatchRes, error) {
 	path := "/query/sim-card-info/batch"
 
