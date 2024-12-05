@@ -265,7 +265,7 @@ func (c *Client) ChangeSimStatus(r *SimBasicInfoReq) (*ChangeSimStatusRes, error
 	if apiResp.Status != "0" {
 		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
-	if apiResp.Status != "13012" {
+	if apiResp.Status == "13012" {
 		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
