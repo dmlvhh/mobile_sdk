@@ -365,10 +365,11 @@ func TestChangeSimStatus(t *testing.T) {
 	}
 	generator := NewTransIDGenerator(appid)
 	simReq := &SimBasicInfoReq{
-		Transid:  generator.Generate(),
-		OperType: "0",
+		Transid: generator.Generate(),
+		//OperType: "0",
+		OperType: "2",
 		Token:    tokenResp.Data.Token,
-		Msisdn:   "1442161864993", // 可选字段
+		Msisdn:   "1442161864999", // 可选字段
 		//Iccid:   "89860846162470274998", // 可选字段
 		//Imsi:    "460240261864998",      // 可选字段
 	}

@@ -33,12 +33,12 @@ func (c *Client) GetToken(r *GetTokenReq) (*TokenRes, error) {
 	// 解析响应
 	var apiResp TokenRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
 
 	// 检查API返回的状态码
 	if apiResp.Code != 1 {
-		return nil, fmt.Errorf("API error: %s", apiResp.Msg)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Msg)
 	}
 	// 更新客户端的 token 字段
 	c.token = apiResp.Data.Token
@@ -59,12 +59,12 @@ func (c *Client) SimBasicInfo(r *SimBasicInfoReq) (*SimBasicInfoRes, error) {
 	// 解析API响应
 	var apiResp SimBasicInfoRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
 
 	// 检查API返回的状态码
 	if apiResp.Status != "0" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
 	return &apiResp, nil
@@ -84,12 +84,12 @@ func (c *Client) SimChangeHistory(r *SimBasicInfoReq) (*SimChangeHistoryRes, err
 	// 解析API响应
 	var apiResp SimChangeHistoryRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
 
 	// 检查API返回的状态码
 	if apiResp.Status != "0" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
 	return &apiResp, nil
@@ -109,12 +109,12 @@ func (c *Client) SimImei(r *SimBasicInfoReq) (*SimImeiRes, error) {
 	// 解析API响应
 	var apiResp SimImeiRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
 
 	// 检查API返回的状态码
 	if apiResp.Status != "0" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
 	return &apiResp, nil
@@ -134,12 +134,12 @@ func (c *Client) SimStatus(r *SimBasicInfoReq) (*SimStatusRes, error) {
 	// 解析API响应
 	var apiResp SimStatusRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
 
 	// 检查API返回的状态码
 	if apiResp.Status != "0" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
 	return &apiResp, nil
@@ -159,12 +159,12 @@ func (c *Client) SimStopReason(r *SimBasicInfoReq) (*SimStopReasonRes, error) {
 	// 解析API响应
 	var apiResp SimStopReasonRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
 
 	// 检查API返回的状态码
 	if apiResp.Status != "0" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
 	return &apiResp, nil
@@ -184,12 +184,12 @@ func (c *Client) SimDataMargin(r *SimBasicInfoReq) (*SimDataMarginRes, error) {
 	// 解析API响应
 	var apiResp SimDataMarginRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
 
 	// 检查API返回的状态码
 	if apiResp.Status != "0" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
 	return &apiResp, nil
@@ -209,12 +209,12 @@ func (c *Client) SimDataUsage(r *SimBasicInfoReq) (*SimDataUsageRes, error) {
 	// 解析API响应
 	var apiResp SimDataUsageRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
 
 	// 检查API返回的状态码
 	if apiResp.Status != "0" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
 	return &apiResp, nil
@@ -234,12 +234,12 @@ func (c *Client) SimDataUsageMonthlyBatch(r *SimBasicInfoBatchReq) (*SimDataUsag
 	// 解析API响应
 	var apiResp SimDataUsageMonthlyBatchRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
 
 	// 检查API返回的状态码
 	if apiResp.Status != "0" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
 	return &apiResp, nil
@@ -259,15 +259,14 @@ func (c *Client) ChangeSimStatus(r *SimBasicInfoReq) (*ChangeSimStatusRes, error
 	// 解析API响应
 	var apiResp ChangeSimStatusRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
-
 	// 检查API返回的状态码
 	if apiResp.Status != "0" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 	if apiResp.Status != "13012" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
 	return &apiResp, nil
@@ -287,12 +286,12 @@ func (c *Client) ChangeSimStatusBatch(r *SimBasicInfoBatchReq) (*ChangeSimStatus
 	// 解析API响应
 	var apiResp ChangeSimStatusBatchRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
 
 	// 检查API返回的状态码
 	if apiResp.Status != "0" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
 	return &apiResp, nil
@@ -312,12 +311,12 @@ func (c *Client) SimCardInfoBatch(r *SimBasicInfoBatchReq) (*SimBasicInfoBatchRe
 	// 解析API响应
 	var apiResp SimBasicInfoBatchRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
 
 	// 检查API返回的状态码
 	if apiResp.Status != "0" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
 	return &apiResp, nil
@@ -337,12 +336,12 @@ func (c *Client) SimPlatformBatch(r *SimBasicInfoBatchReq) (*SimPlatformBatchRes
 	// 解析API响应
 	var apiResp SimPlatformBatchRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
 
 	// 检查API返回的状态码
 	if apiResp.Status != "0" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
 	return &apiResp, nil
@@ -362,12 +361,12 @@ func (c *Client) CardBindStatus(r *SimBasicInfoReq) (*CardBindStatusRes, error) 
 	// 解析API响应
 	var apiResp CardBindStatusRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
 
 	// 检查API返回的状态码
 	if apiResp.Status != "0" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
 	return &apiResp, nil
@@ -387,12 +386,12 @@ func (c *Client) SimRealNameStatus(r *SimBasicInfoReq) (*SimRealNameStatusRes, e
 	// 解析API响应
 	var apiResp SimRealNameStatusRes
 	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
-		return nil, fmt.Errorf("failed to parse response body: %w", err)
+		return &apiResp, fmt.Errorf("failed to parse response body: %w", err)
 	}
 
 	// 检查API返回的状态码
 	if apiResp.Status != "0" {
-		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+		return &apiResp, fmt.Errorf("API error: %s", apiResp.Message)
 	}
 
 	return &apiResp, nil

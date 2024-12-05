@@ -45,7 +45,7 @@ func (c *Client) Do(method, path string, params url.Values, body interface{}, ba
 	} else {
 		url = fmt.Sprintf("%s%s", c.config.APIBaseURL, path)
 	}
-	fmt.Println("url", url)
+	//fmt.Println("url", url)
 	// 设置请求头部
 	req := c.client.R().
 		SetQueryParam("appid", c.config.Appid).
@@ -53,7 +53,7 @@ func (c *Client) Do(method, path string, params url.Values, body interface{}, ba
 		SetQueryParam("channel_id", c.config.ChannelId).
 		SetQueryParam("timestamp", timestamp).
 		SetQueryParam("sign", signature)
-	fmt.Println("req", req)
+	//fmt.Println("req", req)
 	// 如果有查询参数，添加到请求中
 	for key, values := range params {
 		for _, value := range values {
