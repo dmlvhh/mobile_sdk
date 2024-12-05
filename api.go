@@ -221,6 +221,31 @@ func (c *Client) SimDataUsage(r *SimBasicInfoReq) (*SimDataUsageRes, error) {
 
 }
 
+// SimDataUsageMonthlyBatch 物联卡单月GPRS流量使用量批量查询
+func (c *Client) SimDataUsageMonthlyBatch(r *SimBasicInfoBatchReq) (*SimDataUsageMonthlyBatchRes, error) {
+	path := "/query/sim-data-usage-monthly/batch"
+
+	reqBody, _ := json.MarshalIndent(r, "", "  ")
+	fmt.Printf("Request Body: %s\n", reqBody)
+	resp, err := c.DoWithoutToken("POST", path, r, "")
+	if err != nil {
+		return nil, fmt.Errorf("failed to call SimBasicInfo API: %w", err)
+	}
+	// 解析API响应
+	var apiResp SimDataUsageMonthlyBatchRes
+	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
+		return nil, fmt.Errorf("failed to parse response body: %w", err)
+	}
+
+	// 检查API返回的状态码
+	if apiResp.Status != "0" {
+		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+	}
+
+	return &apiResp, nil
+
+}
+
 // ChangeSimStatus 单卡状态变更
 func (c *Client) ChangeSimStatus(r *SimBasicInfoReq) (*ChangeSimStatusRes, error) {
 	path := "/change/sim-status"
