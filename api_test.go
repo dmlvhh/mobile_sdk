@@ -577,3 +577,100 @@ func TestSimDataUsageMonthlyBatch(t *testing.T) {
 	// 打印查询结果
 	fmt.Println("simResp", simResp)
 }
+
+func TestCardBindStatus(t *testing.T) {
+	appid := "29030"
+	appSecret := "a0674936bd251655ff8e14e18c74b879"
+	timestamp := fmt.Sprintf("%d", time.Now().Unix())
+	sign := GenerateSignature(appid, appSecret, timestamp)
+	//fmt.Println(sign)
+	cfg := NewConfig(
+		"http://token.dctxiot.com/api",
+		"https://api.iot.10086.cn/v5/ec",
+		appid,
+		appSecret,
+		"3",
+		10,
+	)
+	//创建客户端
+	client := NewClient(cfg)
+	// 准备请求参数
+	tokenReq := &GetTokenReq{
+		Appid:     appid,
+		AppSecret: appSecret,
+		Times:     timestamp,
+		ChannelId: "3",
+		Sign:      sign,
+	}
+	// 获取Token
+	tokenResp, err := client.GetToken(tokenReq)
+	if err != nil {
+		log.Fatalf("Failed to get token: %v", err)
+	}
+	generator := NewTransIDGenerator(appid)
+	simReq := &SimBasicInfoReq{
+		Transid:  generator.Generate(),
+		TestType: "0",
+		Token:    tokenResp.Data.Token,
+		Msisdn:   "1442161864993", // 可选字段
+		//Iccid:   "89860846162470274998", // 可选字段
+		//Imsi:    "460240261864998",      // 可选字段
+	}
+
+	// 调用 SimBasicInfo 方法查询SIM卡基本信息
+	simResp, err := client.CardBindStatus(simReq)
+	if err != nil {
+		log.Fatalf("Failed to query SIM card info: %v", err)
+	}
+
+	// 打印查询结果
+	fmt.Println("simResp", simResp)
+}
+
+func TestSimRealNameStatus(t *testing.T) {
+	appid := "29030"
+	appSecret := "a0674936bd251655ff8e14e18c74b879"
+	timestamp := fmt.Sprintf("%d", time.Now().Unix())
+	sign := GenerateSignature(appid, appSecret, timestamp)
+	//fmt.Println(sign)
+	cfg := NewConfig(
+		"http://token.dctxiot.com/api",
+		"https://api.iot.10086.cn/v5/ec",
+		appid,
+		appSecret,
+		"3",
+		10,
+	)
+	//创建客户端
+	client := NewClient(cfg)
+	// 准备请求参数
+	tokenReq := &GetTokenReq{
+		Appid:     appid,
+		AppSecret: appSecret,
+		Times:     timestamp,
+		ChannelId: "3",
+		Sign:      sign,
+	}
+	// 获取Token
+	tokenResp, err := client.GetToken(tokenReq)
+	if err != nil {
+		log.Fatalf("Failed to get token: %v", err)
+	}
+	generator := NewTransIDGenerator(appid)
+	simReq := &SimBasicInfoReq{
+		Transid: generator.Generate(),
+		Token:   tokenResp.Data.Token,
+		Msisdn:  "1442161864993", // 可选字段
+		//Iccid:   "89860846162470274998", // 可选字段
+		//Imsi:    "460240261864998",      // 可选字段
+	}
+
+	// 调用 SimBasicInfo 方法查询SIM卡基本信息
+	simResp, err := client.SimRealNameStatus(simReq)
+	if err != nil {
+		log.Fatalf("Failed to query SIM card info: %v", err)
+	}
+
+	// 打印查询结果
+	fmt.Println("simResp", simResp)
+}

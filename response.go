@@ -132,3 +132,22 @@ type SimDataUsageMonthlyBatchRes struct {
 		} `json:"dataAmountList"`
 	} `json:"result"`
 }
+type CardBindStatusRes struct {
+	Status  string `json:"status"`
+	Message string `json:"message"`
+	Result  []struct {
+		Result    string `json:"result"`
+		ErrorCode string `json:"errorCode"`
+		ErrorDes  string `json:"errorDes"`
+	} `json:"result"`
+}
+
+type SimRealNameStatusRes struct {
+	Status  string `json:"status"`
+	Message string `json:"message"`
+	Result  []struct {
+		Reason         string `json:"reason"`
+		RealNameStatus string `json:"realNameStatus"`
+		SuccessTime    string `json:"successTime"`
+	} `json:"result"`
+}

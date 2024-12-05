@@ -15,6 +15,7 @@ type SimBasicInfoReq struct {
 	Iccid    string `json:"iccid,omitempty"`
 	Imsi     string `json:"imsi,omitempty"`
 	OperType string `json:"operType,omitempty"`
+	TestType string `json:"testType,omitempty"`
 }
 
 type SimBasicInfoBatchReq struct {

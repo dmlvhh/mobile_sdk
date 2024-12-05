@@ -14,3 +14,5 @@
 ### ChangeSimStatusBatch 物联卡状态变更批量办理
 ### SimCardInfoBatch 码号信息批量查询
 ### SimPlatformBatch 物联卡归属平台批量查询
+### CardBindStatus 物联卡机卡分离状态查询
+### SimRealNameStatus 物联卡实名登记状态查询

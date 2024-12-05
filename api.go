@@ -348,3 +348,53 @@ func (c *Client) SimPlatformBatch(r *SimBasicInfoBatchReq) (*SimPlatformBatchRes
 	return &apiResp, nil
 
 }
+
+// CardBindStatus 物联卡机卡分离状态查询
+func (c *Client) CardBindStatus(r *SimBasicInfoReq) (*CardBindStatusRes, error) {
+	path := "/query/card-bind-status"
+
+	reqBody, _ := json.MarshalIndent(r, "", "  ")
+	fmt.Printf("Request Body: %s\n", reqBody)
+	resp, err := c.DoWithoutToken("POST", path, r, "")
+	if err != nil {
+		return nil, fmt.Errorf("failed to call SimBasicInfo API: %w", err)
+	}
+	// 解析API响应
+	var apiResp CardBindStatusRes
+	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
+		return nil, fmt.Errorf("failed to parse response body: %w", err)
+	}
+
+	// 检查API返回的状态码
+	if apiResp.Status != "0" {
+		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+	}
+
+	return &apiResp, nil
+
+}
+
+// SimRealNameStatus 物联卡实名登记状态查询
+func (c *Client) SimRealNameStatus(r *SimBasicInfoReq) (*SimRealNameStatusRes, error) {
+	path := "/query/sim-real-name-status"
+
+	reqBody, _ := json.MarshalIndent(r, "", "  ")
+	fmt.Printf("Request Body: %s\n", reqBody)
+	resp, err := c.DoWithoutToken("POST", path, r, "")
+	if err != nil {
+		return nil, fmt.Errorf("failed to call SimBasicInfo API: %w", err)
+	}
+	// 解析API响应
+	var apiResp SimRealNameStatusRes
+	if err := json.Unmarshal(resp.Body(), &apiResp); err != nil {
+		return nil, fmt.Errorf("failed to parse response body: %w", err)
+	}
+
+	// 检查API返回的状态码
+	if apiResp.Status != "0" {
+		return nil, fmt.Errorf("API error: %s", apiResp.Message)
+	}
+
+	return &apiResp, nil
+
+}
