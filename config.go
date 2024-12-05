@@ -1,4 +1,4 @@
-package main
+package mobile_sdk
 
 import "encoding/json"
 

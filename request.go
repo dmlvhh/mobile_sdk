@@ -1,4 +1,4 @@
-package main
+package mobile_sdk
 
 type GetTokenReq struct {
 	Appid     string `json:"appid"`

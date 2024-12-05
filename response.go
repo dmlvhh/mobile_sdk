@@ -1,4 +1,4 @@
-package main
+package mobile_sdk
 
 type TokenRes struct {
 	Code int    `json:"code"`
