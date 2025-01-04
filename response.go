@@ -151,3 +151,11 @@ type SimRealNameStatusRes struct {
 		SuccessTime    string `json:"successTime"`
 	} `json:"result"`
 }
+
+type TPTokenRes struct {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
+	Data    struct {
+		Token string `json:"token"`
+	} `json:"data"`
+}

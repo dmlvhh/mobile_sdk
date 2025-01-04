@@ -7,7 +7,11 @@ type GetTokenReq struct {
 	Times     string `json:"times"`
 	Sign      string `json:"sign"`
 }
-
+type Request struct {
+	TransID string      `json:"trans_id"`
+	Token   string      `json:"token"`
+	Data    interface{} `json:"data"`
+}
 type SimBasicInfoReq struct {
 	Transid  string `json:"transid"`
 	Token    string `json:"token"`
