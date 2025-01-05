@@ -1,6 +1,7 @@
 package mobile_sdk
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
 	"testing"
@@ -62,4 +63,31 @@ func TestTPConfig_NewTP2Config(t *testing.T) {
 		return
 	}
 	fmt.Println(res)
+}
+
+func TestNewTP3Config(t *testing.T) {
+	Tp = NewTP3Config("http://www.llk.10086link.cn/web/api/iot/yijia/get/cmcc/token", "CMCC888888888888103", "1868309673338204160")
+	request, err := Tp.ApiPostRequest(map[string]string{
+		"appId":     Tp.AppID,
+		"accountId": Tp.AccountID,
+	})
+	if err != nil {
+		return
+	}
+	var res TP3TokenRes
+	json.Unmarshal([]byte(request), &res)
+	fmt.Println(res)
+	cf = NewConfig("https://api.iot.10086.cn", "", "")
+	res1, err2 := cf.ApiRequest("/v5/ec/query/sim-basic-info", &SimBasicInfoReq{
+		Transid: cf.TransID,
+		Token:   res.Data,
+		//Msisdn:  "1442077770000", // 可选字段
+		Iccid: "89860837132490489025", // 可选字段
+		//Imsi:    "460240261864998",      // 可选字段
+	})
+	if err2 != nil {
+		fmt.Printf(err2.Error())
+		return
+	}
+	fmt.Println(res1)
 }

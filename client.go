@@ -33,7 +33,7 @@ func (c *TPConfig) ApiGetRequest(params url.Values) (res TPTokenRes, err error) 
 	return
 }
 
-func (c *Config) ApiRequest(url string, data any) (res string, err error) {
+func (c *TPConfig) ApiPostRequest(data any) (res string, err error) {
 	reqData, err := json.Marshal(&data)
 	fmt.Println(string(reqData))
 	//fmt.Println("c", c)
@@ -44,8 +44,36 @@ func (c *Config) ApiRequest(url string, data any) (res string, err error) {
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // 不安全，仅用于测试
 	}
+	fmt.Println(c.ApiUrl)
+	client := &http.Client{Transport: tr}
+	resp, err := client.Post(c.ApiUrl, "application/json", bytes.NewBuffer(reqData))
+	if err != nil {
+		log.Printf("Error making POST request: %s", err)
+		return
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Printf("Error reading response body: %s", err)
+		return
+	}
+	//fmt.Println(string(body))
+	return string(body), nil
+}
+
+func (c *Config) ApiRequest(url string, data any) (res string, err error) {
+	reqData, err := json.Marshal(&data)
+	//fmt.Println(string(reqData))
+	//fmt.Println("c", c)
+	if err != nil {
+		log.Printf("Error Marshal: %s", err)
+		return
+	}
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // 不安全，仅用于测试
+	}
 	apiUrl := c.ApiUrl + url
-	fmt.Println(apiUrl)
+	//fmt.Println(apiUrl)
 	client := &http.Client{Transport: tr}
 	resp, err := client.Post(apiUrl, "application/json", bytes.NewBuffer(reqData))
 	if err != nil {
@@ -58,7 +86,6 @@ func (c *Config) ApiRequest(url string, data any) (res string, err error) {
 		log.Printf("Error reading response body: %s", err)
 		return
 	}
-	fmt.Println(string(body))
-	fmt.Println("111111111111111111111111111")
+	//fmt.Println(string(body))
 	return string(body), nil
 }

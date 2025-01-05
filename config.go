@@ -4,14 +4,6 @@ import (
 	"encoding/json"
 )
 
-//	type Config struct {
-//		TokenAPIBaseURL string `json:"token_api_base_url"`
-//		APIBaseURL      string `json:"api_base_url"`
-//		Appid           string `json:"appid"`
-//		AppSecret       string `json:"app_secret"`
-//		ChannelId       string `json:"channel_id"`
-//		Timeout         int    `json:"timeout"`
-//	}
 type Config struct {
 	ApiUrl    string `json:"api_url"`
 	Appid     string `json:"appid"`
@@ -38,14 +30,15 @@ func (c *Config) String() string {
 }
 
 type TPConfig struct {
-	ApiUrl    string `json:"api_url"`
-	AppID     string `json:"app_id"`
-	AppSecret string `json:"app_secret"`
-	Apikey    string `json:"apikey"`
-	ChannelID string `json:"channel_id"`
-	Sign      string `json:"sign"`
-	Timestamp string `json:"timestamp"`
-	Times     string `json:"times"`
+	ApiUrl    string `json:"api_url,omitempty"`
+	AppID     string `json:"app_id,omitempty"`
+	AppSecret string `json:"app_secret,omitempty"`
+	Apikey    string `json:"apikey,omitempty"`
+	ChannelID string `json:"channel_id,omitempty"`
+	Sign      string `json:"sign,omitempty"`
+	Timestamp string `json:"timestamp,omitempty"`
+	Times     string `json:"times,omitempty"`
+	AccountID string `json:"accountId,omitempty"`
 }
 
 // http://token.dctxiot.com/api/token/getToken
@@ -70,6 +63,14 @@ func NewTP2Config(apiUrl, apikey, ChannelID string) *TPConfig {
 		ChannelID: ChannelID,
 		Apikey:    apikey,
 		Sign:      sign,
+	}
+}
+
+func NewTP3Config(apiUrl, appID, accountID string) *TPConfig {
+	return &TPConfig{
+		ApiUrl:    apiUrl,
+		AppID:     appID,
+		AccountID: accountID,
 	}
 }
 

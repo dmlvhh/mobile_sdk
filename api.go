@@ -2,6 +2,7 @@ package mobile_sdk
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 )
 
@@ -144,6 +145,7 @@ func (c *Config) CardBindStatus(req *SimBasicInfoReq) (res *CardBindStatusRes, e
 		log.Fatalf("CardBindStatus: %s", err)
 		return
 	}
+	fmt.Println(string(request))
 	err = json.Unmarshal([]byte(request), &res)
 	return
 }

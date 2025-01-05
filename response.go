@@ -159,3 +159,11 @@ type TPTokenRes struct {
 		Token string `json:"token"`
 	} `json:"data"`
 }
+
+type TP3TokenRes struct {
+	Code    string `json:"code"`
+	Message string `json:"message"`
+	Result  string `json:"result"`
+	Data    string `json:"data"`
+	IntCode int    `json:"intCode"`
+}
