@@ -73,6 +73,11 @@ func NewTP3Config(apiUrl, appID, accountID string) *TPConfig {
 		AccountID: accountID,
 	}
 }
+func NewTP4Config(apiUrl string) *TPConfig {
+	return &TPConfig{
+		ApiUrl: apiUrl,
+	}
+}
 
 func (c *TPConfig) String() string {
 	data, _ := json.MarshalIndent(c, "", "  ")

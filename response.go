@@ -158,6 +158,7 @@ type TPTokenRes struct {
 	Data    struct {
 		Token string `json:"token"`
 	} `json:"data"`
+	Token string `json:"token"`
 }
 
 type TP3TokenRes struct {
@@ -166,4 +167,12 @@ type TP3TokenRes struct {
 	Result  string `json:"result"`
 	Data    string `json:"data"`
 	IntCode int    `json:"intCode"`
+}
+
+type TP4TokenRes struct {
+	Time    int    `json:"time"`
+	Code    int    `json:"code"`
+	Token   string `json:"token"`
+	Outtime int    `json:"outtime"`
+	Out     int    `json:"out"`
 }

@@ -82,8 +82,50 @@ func TestNewTP3Config(t *testing.T) {
 		Transid: cf.TransID,
 		Token:   res.Data,
 		//Msisdn:  "1442077770000", // 可选字段
-		Iccid: "89860837132490489025", // 可选字段
+		//Iccid: "89860837132490489025", // 可选字段
+		Iccid: "89860837132490567358", // 可选字段
 		//Imsi:    "460240261864998",      // 可选字段
+	})
+	if err2 != nil {
+		fmt.Printf(err2.Error())
+		return
+	}
+	fmt.Println(res1)
+}
+
+func TestNewTP4Config(t *testing.T) {
+	TP := NewTP4Config("http://acc-api-token.nnkj77.com/iot/xt1000/token.php")
+	params := url.Values{}
+	request, err := TP.ApiGetRequest(params)
+	if err != nil {
+		return
+	}
+	fmt.Println(request.Token)
+	token := request.Token
+	cf = NewConfig("https://api.iot.10086.cn", "", "")
+	//res, err2 := cf.ApiRequest("/v5/ec/query/sim-basic-info", &SimBasicInfoReq{
+	//	Transid: cf.TransID,
+	//	Token:   token,
+	//	Msisdn:  "1441649449990", // 可选字段
+	//	//Iccid:   "89860846162470274998", // 可选字段
+	//	//Imsi:    "460240261864998",      // 可选字段
+	//})
+	//res1, err2 := cf.ApiRequest("/v5/ec/query/sim-real-name-status", &SimBasicInfoReq{
+	//	Transid: cf.TransID,
+	//	Token:   token,
+	//	//Msisdn:  "1442078069363", // 可选字段
+	//	Iccid: "898608301724D0252275", // 可选字段
+	//	//Iccid: "89860837132490570000", // 可选字段
+	//	//Imsi: "1442078067002", // 可选字段
+	//})
+	res1, err2 := cf.ApiRequest("/v5/ec/query/card-bind-status", &SimBasicInfoReq{
+		Transid:  cf.TransID,
+		Token:    token,
+		TestType: "0",
+		Msisdn:   "1442000252275", // 可选字段
+		//Iccid: "89860837132490563908", // 可选字段
+		//Iccid: "89860837132490570000", // 可选字段
+		//Imsi: "1442078067002", // 可选字段
 	})
 	if err2 != nil {
 		fmt.Printf(err2.Error())

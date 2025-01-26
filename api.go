@@ -10,8 +10,8 @@ import (
 func (c *Config) SimBasicInfo(req *SimBasicInfoReq) (res *SimBasicInfoRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/query/sim-basic-info", req)
 	if err != nil {
-		log.Fatalf("SimBasicInfo: %s", err)
-		return
+		log.Printf("SimBasicInfo: %s", err)
+		return nil, err
 	}
 	err = json.Unmarshal([]byte(request), &res)
 	return
@@ -21,8 +21,8 @@ func (c *Config) SimBasicInfo(req *SimBasicInfoReq) (res *SimBasicInfoRes, err e
 func (c *Config) SimChangeHistory(req *SimBasicInfoReq) (res *SimChangeHistoryRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/query/sim-change-history", req)
 	if err != nil {
-		log.Fatalf("SimChangeHistory: %s", err)
-		return
+		log.Printf("SimChangeHistory: %s", err)
+		return nil, err
 	}
 	err = json.Unmarshal([]byte(request), &res)
 	return
@@ -32,8 +32,8 @@ func (c *Config) SimChangeHistory(req *SimBasicInfoReq) (res *SimChangeHistoryRe
 func (c *Config) SimImei(req *SimBasicInfoReq) (res *SimImeiRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/query/sim-imei", req)
 	if err != nil {
-		log.Fatalf("SimImei: %s", err)
-		return
+		log.Printf("SimImei: %s", err)
+		return nil, err
 	}
 	err = json.Unmarshal([]byte(request), &res)
 	return
@@ -43,8 +43,8 @@ func (c *Config) SimImei(req *SimBasicInfoReq) (res *SimImeiRes, err error) {
 func (c *Config) SimStatus(req *SimBasicInfoReq) (res *SimStatusRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/query/sim-status", req)
 	if err != nil {
-		log.Fatalf("SimStatus: %s", err)
-		return
+		log.Printf("SimStatus: %s", err)
+		return nil, err
 	}
 	err = json.Unmarshal([]byte(request), &res)
 	return
@@ -54,8 +54,8 @@ func (c *Config) SimStatus(req *SimBasicInfoReq) (res *SimStatusRes, err error) 
 func (c *Config) SimStopReason(req *SimBasicInfoReq) (res *SimStopReasonRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/query/sim-stop-reason", req)
 	if err != nil {
-		log.Fatalf("SimStopReason: %s", err)
-		return
+		log.Printf("SimStopReason: %s", err)
+		return nil, err
 	}
 	err = json.Unmarshal([]byte(request), &res)
 	return
@@ -65,8 +65,8 @@ func (c *Config) SimStopReason(req *SimBasicInfoReq) (res *SimStopReasonRes, err
 func (c *Config) SimDataMargin(req *SimBasicInfoReq) (res *SimDataMarginRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/query/sim-data-margin", req)
 	if err != nil {
-		log.Fatalf("SimDataMargin: %s", err)
-		return
+		log.Printf("SimDataMargin: %s", err)
+		return nil, err
 	}
 	err = json.Unmarshal([]byte(request), &res)
 	return
@@ -76,8 +76,8 @@ func (c *Config) SimDataMargin(req *SimBasicInfoReq) (res *SimDataMarginRes, err
 func (c *Config) SimDataUsage(req *SimBasicInfoReq) (res *SimDataUsageRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/query/sim-data-usage", req)
 	if err != nil {
-		log.Fatalf("SimDataUsage: %s", err)
-		return
+		log.Printf("SimDataUsage: %s", err)
+		return nil, err
 	}
 	err = json.Unmarshal([]byte(request), &res)
 	return
@@ -87,8 +87,8 @@ func (c *Config) SimDataUsage(req *SimBasicInfoReq) (res *SimDataUsageRes, err e
 func (c *Config) SimDataUsageMonthlyBatch(req *SimBasicInfoBatchReq) (res *SimDataUsageMonthlyBatchRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/query/sim-data-usage-monthly/batch", req)
 	if err != nil {
-		log.Fatalf("SimDataUsageMonthlyBatch: %s", err)
-		return
+		log.Printf("SimDataUsageMonthlyBatch: %s", err)
+		return nil, err
 	}
 	err = json.Unmarshal([]byte(request), &res)
 	return
@@ -96,10 +96,10 @@ func (c *Config) SimDataUsageMonthlyBatch(req *SimBasicInfoBatchReq) (res *SimDa
 
 // ChangeSimStatus 单卡状态变更
 func (c *Config) ChangeSimStatus(req *SimBasicInfoReq) (res *ChangeSimStatusRes, err error) {
-	request, err := c.ApiRequest("/v5/ec/query/sim-status", req)
+	request, err := c.ApiRequest("/v5/ec/change/sim-status", req)
 	if err != nil {
-		log.Fatalf("ChangeSimStatus: %s", err)
-		return
+		log.Printf("ChangeSimStatus: %s", err)
+		return nil, err
 	}
 	err = json.Unmarshal([]byte(request), &res)
 	return
@@ -109,8 +109,8 @@ func (c *Config) ChangeSimStatus(req *SimBasicInfoReq) (res *ChangeSimStatusRes,
 func (c *Config) ChangeSimStatusBatch(req *SimBasicInfoBatchReq) (res *ChangeSimStatusBatchRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/change/sim-status/batch", req)
 	if err != nil {
-		log.Fatalf("ChangeSimStatusBatch: %s", err)
-		return
+		log.Printf("ChangeSimStatusBatch: %s", err)
+		return nil, err
 	}
 	err = json.Unmarshal([]byte(request), &res)
 	return
@@ -120,8 +120,8 @@ func (c *Config) ChangeSimStatusBatch(req *SimBasicInfoBatchReq) (res *ChangeSim
 func (c *Config) SimCardInfoBatch(req *SimBasicInfoBatchReq) (res *SimBasicInfoBatchRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/query/sim-card-info/batch", req)
 	if err != nil {
-		log.Fatalf("SimCardInfoBatch: %s", err)
-		return
+		log.Printf("SimCardInfoBatch: %s", err)
+		return nil, err
 	}
 	err = json.Unmarshal([]byte(request), &res)
 	return
@@ -131,8 +131,8 @@ func (c *Config) SimCardInfoBatch(req *SimBasicInfoBatchReq) (res *SimBasicInfoB
 func (c *Config) SimPlatformBatch(req *SimBasicInfoBatchReq) (res *SimPlatformBatchRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/query/sim-platform/batch", req)
 	if err != nil {
-		log.Fatalf("SimPlatformBatch: %s", err)
-		return
+		log.Printf("SimPlatformBatch: %s", err)
+		return nil, err
 	}
 	err = json.Unmarshal([]byte(request), &res)
 	return
@@ -142,8 +142,8 @@ func (c *Config) SimPlatformBatch(req *SimBasicInfoBatchReq) (res *SimPlatformBa
 func (c *Config) CardBindStatus(req *SimBasicInfoReq) (res *CardBindStatusRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/query/card-bind-status", req)
 	if err != nil {
-		log.Fatalf("CardBindStatus: %s", err)
-		return
+		log.Printf("CardBindStatus: %s", err)
+		return nil, err
 	}
 	fmt.Println(string(request))
 	err = json.Unmarshal([]byte(request), &res)
@@ -154,8 +154,8 @@ func (c *Config) CardBindStatus(req *SimBasicInfoReq) (res *CardBindStatusRes, e
 func (c *Config) SimRealNameStatus(req *SimBasicInfoReq) (res *SimRealNameStatusRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/query/sim-real-name-status", req)
 	if err != nil {
-		log.Fatalf("SimRealNameStatus: %s", err)
-		return
+		log.Printf("SimRealNameStatus: %s", err)
+		return nil, err
 	}
 	err = json.Unmarshal([]byte(request), &res)
 	return
