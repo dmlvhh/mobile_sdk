@@ -145,7 +145,7 @@ func (c *Config) CardBindStatus(req *SimBasicInfoReq) (res *CardBindStatusRes, e
 		log.Printf("CardBindStatus: %s", err)
 		return nil, err
 	}
-	fmt.Println(string(request))
+	//fmt.Println(string(request))
 	err = json.Unmarshal([]byte(request), &res)
 	return
 }
@@ -155,6 +155,40 @@ func (c *Config) SimRealNameStatus(req *SimBasicInfoReq) (res *SimRealNameStatus
 	request, err := c.ApiRequest("/v5/ec/query/sim-real-name-status", req)
 	if err != nil {
 		log.Printf("SimRealNameStatus: %s", err)
+		return nil, err
+	}
+	err = json.Unmarshal([]byte(request), &res)
+	return
+}
+
+// SimDataDiagnosis 物联卡达量限速档位查询
+func (c *Config) SimDataDiagnosis(req *SimBasicInfoReq) (res *SimDataDiagnosisRes, err error) {
+	request, err := c.ApiRequest("/v5/ec/query/sim-data-diagnosis", req)
+	if err != nil {
+		log.Printf("SimDataDiagnosis: %s", err)
+		return nil, err
+	}
+	//fmt.Println("SimDataDiagnosis", request)
+	err = json.Unmarshal([]byte(request), &res)
+	return
+}
+
+func (c *Config) NetworkSpeed(req *SimBasicInfoReq) (res *NetworkSpeedRes, err error) {
+	request, err := c.ApiRequest("/v5/ec/operate/network-speed", req)
+	if err != nil {
+		log.Printf("NetworkSpeed: %s", err)
+		return nil, err
+	}
+	fmt.Println("NetworkSpeed", request)
+	err = json.Unmarshal([]byte(request), &res)
+	return
+}
+
+// SimManageStopRestartStatus 物联卡管理停复机冻结状态查询
+func (c *Config) SimManageStopRestartStatus(req *SimBasicInfoReq) (res *SimManageStopRestartStatusRes, err error) {
+	request, err := c.ApiRequest("/v5/ec/query/sim-manage-stop-restart-status", req)
+	if err != nil {
+		log.Printf("SimManageStopRestartStatus: %s", err)
 		return nil, err
 	}
 	err = json.Unmarshal([]byte(request), &res)

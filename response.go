@@ -152,6 +152,33 @@ type SimRealNameStatusRes struct {
 	} `json:"result"`
 }
 
+type SimDataDiagnosisRes struct {
+	Status  string `json:"status"`
+	Message string `json:"message"`
+	Result  []struct {
+		APNList struct {
+			APNInfo []struct {
+				APNName              string `json:"APNName"`
+				ModifyTime           string `json:"modifyTime"`
+				APNStatus            string `json:"APNStatus"`
+				APNServiceUsageState string `json:"APNServiceUsageState"`
+			} `json:"APNInfo"`
+		} `json:"APNList"`
+	} `json:"result"`
+}
+type NetworkSpeedRes struct {
+}
+
+type SimManageStopRestartStatusRes struct {
+	Status  string `json:"status"`
+	Message string `json:"message"`
+	Result  []struct {
+		ManageStopRestartStatus     string `json:"  manageStopRestartStatus"`   //0否1是
+		Reason                      string `json:"reason"`                      //冻结原因
+		ManageStOpRestartStatusTime string `json:"manageStopRestartStatusTime"` //  管理停机冻结时间或解冻操作时间
+	} `json:"result"`
+}
+
 type TPTokenRes struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`

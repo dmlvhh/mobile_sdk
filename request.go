@@ -13,13 +13,15 @@ type Request struct {
 	Data    interface{} `json:"data"`
 }
 type SimBasicInfoReq struct {
-	Transid  string `json:"transid"`
-	Token    string `json:"token"`
-	Msisdn   string `json:"msisdn,omitempty"`
-	Iccid    string `json:"iccid,omitempty"`
-	Imsi     string `json:"imsi,omitempty"`
-	OperType string `json:"operType,omitempty"`
-	TestType string `json:"testType,omitempty"`
+	Transid           string `json:"transid"`
+	Token             string `json:"token"`
+	Msisdn            string `json:"msisdn,omitempty"`
+	Iccid             string `json:"iccid,omitempty"`
+	Imsi              string `json:"imsi,omitempty"`
+	OperType          string `json:"operType,omitempty"`
+	TestType          string `json:"testType,omitempty"`
+	ApnName           string `json:"apnName,omitempty"`
+	ServiceUsageState string `json:"serviceUsageState,omitempty"`
 }
 
 type SimBasicInfoBatchReq struct {
@@ -31,4 +33,7 @@ type SimBasicInfoBatchReq struct {
 	OperType  string `json:"operType,omitempty"`
 	Reason    string `json:"reason,omitempty"`
 	QueryDate string `json:"queryDate,omitempty"`
+}
+
+type SimDataDiagnosisReq struct {
 }
