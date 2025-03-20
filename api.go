@@ -194,3 +194,13 @@ func (c *Config) SimManageStopRestartStatus(req *SimBasicInfoReq) (res *SimManag
 	err = json.Unmarshal([]byte(request), &res)
 	return
 }
+
+func (c *Config) QuerySimImei(req *SimBasicInfoReq) (res *NetworkSpeedRes, err error) {
+	request, err := c.ApiRequest("/v5/ec/query/sim-imei", req)
+	if err != nil {
+		log.Printf("QuerySimImei: %s", err)
+		return nil, err
+	}
+	err = json.Unmarshal([]byte(request), &res)
+	return
+}

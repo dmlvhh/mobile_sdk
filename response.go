@@ -179,6 +179,15 @@ type SimManageStopRestartStatusRes struct {
 	} `json:"result"`
 }
 
+//
+//type SimImeiRes struct {
+//	Status  string `json:"status"`
+//	Message string `json:"message"`
+//	Result  []struct {
+//		Imei string `json:"imei"`
+//	} `json:"result"`
+//}
+
 type TPTokenRes struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`

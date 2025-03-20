@@ -52,10 +52,11 @@ func TestTPConfig_NewTP2Config(t *testing.T) {
 	fmt.Println(request.Data.Token)
 	token := request.Data.Token
 	cf = NewConfig("https://api.iot.10086.cn", "PMMxeJGqamJw7Jrh13361", "mUzJa4znlE7f9ZtdIReVFMFubUzx2vs6")
-	res, err2 := cf.ApiRequest("/v5/ec/query/sim-manage-stop-restart-status", &SimBasicInfoReq{
+	//res, err2 := cf.ApiRequest("/v5/ec/query/sim-manage-stop-restart-status", &SimBasicInfoReq{
+	res, err2 := cf.ApiRequest("/v5/ec/query/sim-imei", &SimBasicInfoReq{
 		Transid: cf.TransID,
 		Token:   token,
-		Msisdn:  "1442360450772", // 可选字段
+		Msisdn:  "1064811659919", // 可选字段
 		//Iccid: "89860866182590580766", // 可选字段
 		//Imsi:    "460240261864998",      // 可选字段
 	})

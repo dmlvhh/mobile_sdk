@@ -75,7 +75,9 @@ import (
 //}
 
 func main() {
-	Tp := mobile_sdk.NewTP2Config("https://ac.buleideiot.com/api/get-chinamobile-onelink-token", "sj4xACNePCXgZARj", "22")
+	//Tp := mobile_sdk.NewTP2Config("https://ac.buleideiot.com/api/get-chinamobile-onelink-token", "sj4xACNePCXgZARj", "22")
+	Tp := mobile_sdk.NewTP2Config("https://ac.buleideiot.com/api/get-chinamobile-onelink-token", "NNIYDQcitiDJngWA", "17")
+
 	params := url.Values{}
 	params.Add("channel_id", Tp.ChannelID)
 	params.Add("sign", Tp.Sign)
@@ -87,10 +89,10 @@ func main() {
 	token := request.Data.Token
 	cf := mobile_sdk.NewConfig("https://api.iot.10086.cn", "PMMxeJGqamJw7Jrh13361", "mUzJa4znlE7f9ZtdIReVFMFubUzx2vs6")
 	//cf := mobile_sdk.NewConfig("https://api.iot.10086.cn", "PMMxeJGqamJw7Jrh13361", "mUzJa4znlE7f9ZtdIReVFMFubUzx2vs6")
-	res, err2 := cf.ApiRequest("/v5/ec/query/sim-basic-info", &mobile_sdk.SimBasicInfoReq{
+	res, err2 := cf.ApiRequest("/v5/ec/query/sim-imei", &mobile_sdk.SimBasicInfoReq{
 		Transid: cf.TransID,
 		Token:   token,
-		Msisdn:  "1442078054710", // 可选字段
+		Msisdn:  "1064811219543", // 可选字段
 		//Iccid: "898604451424D0102274", // 可选字段
 		//Imsi: "1440452640897", // 可选字段
 	})
