@@ -22,6 +22,7 @@ type SimBasicInfoReq struct {
 	TestType          string `json:"testType,omitempty"`
 	ApnName           string `json:"apnName,omitempty"`
 	ServiceUsageState string `json:"serviceUsageState,omitempty"`
+	UrlType           string `json:"urlType,omitempty"`
 }
 
 type SimBasicInfoBatchReq struct {

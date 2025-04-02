@@ -11,7 +11,7 @@ var Tp *TPConfig
 var cf *Config
 
 func TestTPConfig_NewTP1Config(t *testing.T) {
-	Tp = NewTP1Config("http://token.dctxiot.com/api/token/getToken", "29030", "a0674936bd251655ff8e14e18c74b879", "3")
+	Tp = NewTP1Config("http://token.dctxiot.com/api/token/getToken", "29030", "a0674936bd251655ff8e14e18c74b879", "8")
 	params := url.Values{}
 	params.Add("appid", Tp.AppID)
 	params.Add("app_secret", Tp.AppSecret)
@@ -29,7 +29,7 @@ func TestTPConfig_NewTP1Config(t *testing.T) {
 		Transid: cf.TransID,
 		Token:   token,
 		//Msisdn:  "1442161864994", // 可选字段
-		Iccid: "89860846162470274998", // 可选字段
+		Iccid: "89860839092420107303", // 可选字段
 		//Imsi:    "460240261864998",      // 可选字段
 	})
 	if err2 != nil {
@@ -53,10 +53,18 @@ func TestTPConfig_NewTP2Config(t *testing.T) {
 	token := request.Data.Token
 	cf = NewConfig("https://api.iot.10086.cn", "PMMxeJGqamJw7Jrh13361", "mUzJa4znlE7f9ZtdIReVFMFubUzx2vs6")
 	//res, err2 := cf.ApiRequest("/v5/ec/query/sim-manage-stop-restart-status", &SimBasicInfoReq{
-	res, err2 := cf.ApiRequest("/v5/ec/query/sim-imei", &SimBasicInfoReq{
+	res, err2 := cf.ApiRequest("/v5/ec/operate/sim-gprs-status-reset", &SimBasicInfoReq{ //0:关机 1:开机
+		//res, err2 := cf.ApiRequest("/v5/ec/query/on-off-status", &SimBasicInfoReq{ //0:关机 1:开机
+		//res, err2 := cf.ApiRequest("/v5/ec/query/sim-session", &SimBasicInfoReq{ //0:关机 1:开机
+		//res, err2 := cf.ApiRequest("/v5/ec/secure/sim-real-name-reg", &SimBasicInfoReq{
+		//res, err2 := cf.ApiRequest("/v5/ec/query/card-bind-status", &SimBasicInfoReq{
+		//res, err2 := cf.ApiRequest("/v5/ec/query/sim-imei", &SimBasicInfoReq{
 		Transid: cf.TransID,
 		Token:   token,
-		Msisdn:  "1064811659919", // 可选字段
+		//TestType: "0",
+		Msisdn: "1442360450878", // 可选字段
+		//UrlType: "2",
+		//Msisdn:   "1442360450822", // 可选字段
 		//Iccid: "89860866182590580766", // 可选字段
 		//Imsi:    "460240261864998",      // 可选字段
 	})

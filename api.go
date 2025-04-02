@@ -204,3 +204,36 @@ func (c *Config) QuerySimImei(req *SimBasicInfoReq) (res *NetworkSpeedRes, err e
 	err = json.Unmarshal([]byte(request), &res)
 	return
 }
+
+// QueryOnOffStatus 单卡开关机状态实时查询 0:关机 1:开机
+func (c *Config) QueryOnOffStatus(req *SimBasicInfoReq) (res *QueryOnOffStatusRes, err error) {
+	request, err := c.ApiRequest("/v5/ec/query/on-off-status", req)
+	if err != nil {
+		log.Printf("QueryOnOffStatus: %s", err)
+		return nil, err
+	}
+	err = json.Unmarshal([]byte(request), &res)
+	return
+}
+
+// QuerySimSession 查询物联卡的在线信息，区分 APN，返回 APN 信息、IP 地址、会话创建时间
+func (c *Config) QuerySimSession(req *SimBasicInfoReq) (res *SimSessionRes, err error) {
+	request, err := c.ApiRequest("/v5/ec/query/sim-session", req)
+	if err != nil {
+		log.Printf("QuerySimSession: %s", err)
+		return nil, err
+	}
+	err = json.Unmarshal([]byte(request), &res)
+	return
+}
+
+// SimGprsStatusReset 物联卡 GPRS 上网功能重置
+func (c *Config) SimGprsStatusReset(req *SimBasicInfoReq) (res *SimGprsStatusResetRes, err error) {
+	request, err := c.ApiRequest("/v5/ec/operate/sim-gprs-status-reset", req)
+	if err != nil {
+		log.Printf("SimGprsStatusReset: %s", err)
+		return nil, err
+	}
+	err = json.Unmarshal([]byte(request), &res)
+	return
+}

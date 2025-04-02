@@ -178,16 +178,34 @@ type SimManageStopRestartStatusRes struct {
 		ManageStOpRestartStatusTime string `json:"manageStopRestartStatusTime"` //  管理停机冻结时间或解冻操作时间
 	} `json:"result"`
 }
+type QueryOnOffStatusRes struct {
+	Status  string `json:"status"`
+	Message string `json:"message"`
+	Result  []struct {
+		Status string `json:"  status"`
+	} `json:"result"`
+}
+type SimSessionRes struct {
+	Status  string `json:"status"`
+	Message string `json:"message"`
+	Result  []struct {
+		SImSessionList []struct {
+			ApnId      string `json:"apnId"`
+			Status     string `json:"status"`
+			Ip         string `json:"ip"`
+			CreateDate string `json:"createDate"`
+			Rat        string `json:"rat"`
+			Ipv6Prefix string `json:"ipv6Prefix"`
+			Ipv6       string `json:"ipv6"`
+		} `json:"s  imSessionList"`
+	} `json:"result"`
+}
 
-//
-//type SimImeiRes struct {
-//	Status  string `json:"status"`
-//	Message string `json:"message"`
-//	Result  []struct {
-//		Imei string `json:"imei"`
-//	} `json:"result"`
-//}
-
+type SimGprsStatusResetRes struct {
+	Status  string        `json:"status"`
+	Message string        `json:"message"`
+	Result  []interface{} `json:"result"`
+}
 type TPTokenRes struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
