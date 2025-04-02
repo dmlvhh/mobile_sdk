@@ -173,6 +173,7 @@ func (c *Config) SimDataDiagnosis(req *SimBasicInfoReq) (res *SimDataDiagnosisRe
 	return
 }
 
+// NetworkSpeed 网卡限速
 func (c *Config) NetworkSpeed(req *SimBasicInfoReq) (res *NetworkSpeedRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/operate/network-speed", req)
 	if err != nil {
@@ -195,6 +196,7 @@ func (c *Config) SimManageStopRestartStatus(req *SimBasicInfoReq) (res *SimManag
 	return
 }
 
+// QuerySimImei 查询设别最新的IMEI
 func (c *Config) QuerySimImei(req *SimBasicInfoReq) (res *NetworkSpeedRes, err error) {
 	request, err := c.ApiRequest("/v5/ec/query/sim-imei", req)
 	if err != nil {
