@@ -2,8 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/dmlvhh/mobile_sdk"
-	"net/url"
+	"github.com/dmlvhh/mobile_sdk/tianyi"
 )
 
 //func main() {
@@ -76,31 +75,53 @@ import (
 
 func main() {
 	//Tp := mobile_sdk.NewTP2Config("https://ac.buleideiot.com/api/get-chinamobile-onelink-token", "sj4xACNePCXgZARj", "22")
-	Tp := mobile_sdk.NewTP2Config("https://ac.buleideiot.com/api/get-chinamobile-onelink-token", "NNIYDQcitiDJngWA", "17")
-
-	params := url.Values{}
-	params.Add("channel_id", Tp.ChannelID)
-	params.Add("sign", Tp.Sign)
-	request, err := Tp.ApiGetRequest(params)
-	if err != nil {
-		return
-	}
-	fmt.Println(request.Data.Token)
-	token := request.Data.Token
-	cf := mobile_sdk.NewConfig("https://api.iot.10086.cn", "PMMxeJGqamJw7Jrh13361", "mUzJa4znlE7f9ZtdIReVFMFubUzx2vs6")
+	//Tp := mobile_sdk.NewTP2Config("https://ac.buleideiot.com/api/get-chinamobile-onelink-token", "NNIYDQcitiDJngWA", "17")
+	//
+	//params := url.Values{}
+	//params.Add("channel_id", Tp.ChannelID)
+	//params.Add("sign", Tp.Sign)
+	//request, err := Tp.ApiGetRequest(params)
+	//if err != nil {
+	//	return
+	//}
+	//fmt.Println(request.Data.Token)
+	//token := request.Data.Token
 	//cf := mobile_sdk.NewConfig("https://api.iot.10086.cn", "PMMxeJGqamJw7Jrh13361", "mUzJa4znlE7f9ZtdIReVFMFubUzx2vs6")
-	res, err2 := cf.ApiRequest("/v5/ec/query/sim-imei", &mobile_sdk.SimBasicInfoReq{
-		Transid: cf.TransID,
-		Token:   token,
-		Msisdn:  "1064811219543", // 可选字段
-		//Iccid: "898604451424D0102274", // 可选字段
-		//Imsi: "1440452640897", // 可选字段
-	})
-	if err2 != nil {
-		fmt.Printf(err2.Error())
-		return
-	}
-	fmt.Println(res)
+	////cf := mobile_sdk.NewConfig("https://api.iot.10086.cn", "PMMxeJGqamJw7Jrh13361", "mUzJa4znlE7f9ZtdIReVFMFubUzx2vs6")
+	//res, err2 := cf.ApiRequest("/v5/ec/query/sim-imei", &mobile_sdk.SimBasicInfoReq{
+	//	Transid: cf.TransID,
+	//	Token:   token,
+	//	Msisdn:  "1064811219543", // 可选字段
+	//	//Iccid: "898604451424D0102274", // 可选字段
+	//	//Imsi: "1440452640897", // 可选字段
+	//})
+	//if err2 != nil {
+	//	fmt.Printf(err2.Error())
+	//	return
+	//}
+	//fmt.Println(res)
+
+	client := tianyi.NewTianyiClient("http://ww.fengye2.tianiot.com", "2430", "RMypoSLJjUQ7iaZskl1W3qUFR")
+
+	//// 校验请求
+	//verifyResp, err := client.PostVerification()
+	//fmt.Println("校验返回:", verifyResp, "错误:", err)
+
+	// 获取卡板信息
+	cardResp, err := client.GetCardInfo("89860859182490278346")
+	fmt.Println("卡板信息返回:", cardResp, "错误:", err)
+	//// 批量查卡板信息：用 iccids
+	//resp1, _ := client.GetBatchCardInfo(
+	//	[]string{"89860859182490278346"},
+	//	nil,
+	//)
+	//fmt.Println("批量卡板信息返回（iccids）:", resp1)
+	//
+	//sim, err := client.RefreshSim("89860859182490278346")
+	//if err != nil {
+	//	return
+	//}
+	//fmt.Println("RefreshSim", sim)
 }
 
 //func main() {

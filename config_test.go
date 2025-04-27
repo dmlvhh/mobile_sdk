@@ -59,10 +59,10 @@ func TestTPConfig_NewTP2Config(t *testing.T) {
 		//res, err2 := cf.ApiRequest("/v5/ec/secure/sim-real-name-reg", &SimBasicInfoReq{
 		//res, err2 := cf.ApiRequest("/v5/ec/query/card-bind-status", &SimBasicInfoReq{
 		//res, err2 := cf.ApiRequest("/v5/ec/query/sim-imei", &SimBasicInfoReq{
-		Transid: cf.TransID,
-		Token:   token,
-		//TestType: "0",
-		Msisdn: "1442360450878", // 可选字段
+		Transid:  cf.TransID,
+		Token:    token,
+		TestType: "0",
+		Msisdn:   "1442360450928", // 可选字段
 		//UrlType: "2",
 		//Msisdn:   "1442360450822", // 可选字段
 		//Iccid: "89860866182590580766", // 可选字段
