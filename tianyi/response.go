@@ -49,9 +49,10 @@ type PlaceOrderRes struct {
 	Code int    `json:"code"`
 	Msg  string `json:"msg"`
 	Info struct {
-		OrderNo int64 `json:"order_no"`
+		OrderNo string `json:"order_no"`
 	} `json:"info"`
 }
+
 type GetBatchCardInfoRes struct {
 	Code int    `json:"code"`
 	Msg  string `json:"msg"`

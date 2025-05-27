@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -70,6 +71,28 @@ func (c *TianyiClient) GetCardInfo(iccid string) (res GetCardInfoRes, err error)
 	return res, nil
 }
 
+// 获取卡板信息
+func (c *TianyiClient) GetFreezeInfo(iccid string) (res GetCardInfoRes, err error) {
+	requestTime := time.Now().Unix()
+	token := c.generateToken(requestTime)
+
+	form := url.Values{}
+	form.Set("user_id", c.UserID)
+	form.Set("api_key", c.APIKey)
+	form.Set("request_time", strconv.FormatInt(requestTime, 10))
+	form.Set("request_token", token)
+	form.Set("iccid", iccid)
+
+	resp, err := http.PostForm(c.BaseURL+"//index/ka_ban/getRestartStatus", form)
+	if err != nil {
+		return res, err
+	}
+	defer resp.Body.Close()
+	body, _ := io.ReadAll(resp.Body)
+	json.Unmarshal(body, &res)
+	return res, nil
+}
+
 // 修改SIM卡状态：1=停机，2=复机
 func (c *TianyiClient) SetSimStatus(iccid string, status int) (res SetSimStatusRes, err error) {
 	if iccid == "" || (status != 1 && status != 2) {
@@ -123,12 +146,11 @@ func (c *TianyiClient) UnbindSimCard(iccid string) (res UnbindSimCardRes, err er
 	return res, nil
 }
 
-// 下单接口：为某个卡下发套餐订单本月次月 1本月 2次月 默认不填是本月
-func (c *TianyiClient) PlaceOrder(iccid string, packageID int, monthType *int, orderNo *string) (res PlaceOrderRes, err error) {
-	if iccid == "" || packageID == 0 {
+func (c *TianyiClient) PlaceOrder(iccid string, packageID string, monthType int, orderNo string) (res PlaceOrderRes, err error) {
+	if iccid == "" || packageID == "" {
+		log.Println("iccid 和 package_id 是必须的")
 		return res, errors.New("iccid 和 package_id 是必须的")
 	}
-
 	requestTime := time.Now().Unix()
 	token := c.generateToken(requestTime)
 
@@ -137,22 +159,33 @@ func (c *TianyiClient) PlaceOrder(iccid string, packageID int, monthType *int, o
 	form.Set("iccid", iccid)
 	form.Set("request_time", strconv.FormatInt(requestTime, 10))
 	form.Set("request_token", token)
-	form.Set("package_id", strconv.Itoa(packageID))
+	form.Set("package_id", packageID)
 
-	if monthType != nil {
-		form.Set("month_type", strconv.Itoa(*monthType)) // 1本月 2次月
+	if monthType != 0 {
+		form.Set("month_type", strconv.Itoa(monthType)) // 1本月 2次月
 	}
-	if orderNo != nil {
-		form.Set("order_no", *orderNo)
+	if orderNo != "" {
+		form.Set("order_no", orderNo)
 	}
 
-	resp, err := http.PostForm(c.BaseURL+"/apiv1/tianyi/orderCreate", form)
+	endpoint := c.BaseURL + "/apiv1/tianyi/orderCreate"
+	resp, err := http.PostForm(endpoint, form)
 	if err != nil {
+		log.Println("下单请求失败:", err)
 		return res, err
 	}
 	defer resp.Body.Close()
-	body, _ := io.ReadAll(resp.Body)
-	json.Unmarshal(body, &res)
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Println("读取响应失败:", err)
+		return res, err
+	}
+	err = json.Unmarshal(body, &res)
+	if err != nil {
+		log.Println("解析响应失败:", err)
+		return res, err
+	}
 	return res, nil
 }
 

@@ -1,8 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/dmlvhh/mobile_sdk/tianyi"
+	gonanoid "github.com/matoous/go-nanoid/v2"
+	"log"
+	"time"
 )
 
 //func main() {
@@ -47,31 +51,38 @@ import (
 //fmt.Println(res.Result)
 //}
 
-//func main() {
-//	Tp := mobile_sdk.NewTP2Config("https://ac.buleideiot.com/api/get-chinamobile-onelink-token", "sj4xACNePCXgZARj", "22")
-//	params := url.Values{}
-//	params.Add("channel_id", Tp.ChannelID)
-//	params.Add("sign", Tp.Sign)
-//	request, err := Tp.ApiGetRequest(params)
-//	if err != nil {
-//		return
+//	func main() {
+//		Tp := mobile_sdk.NewTP2Config("https://ac.buleideiot.com/api/get-chinamobile-onelink-token", "sj4xACNePCXgZARj", "22")
+//		params := url.Values{}
+//		params.Add("channel_id", Tp.ChannelID)
+//		params.Add("sign", Tp.Sign)
+//		request, err := Tp.ApiGetRequest(params)
+//		if err != nil {
+//			return
+//		}
+//		fmt.Println(request.Data.Token)
+//		token := request.Data.Token
+//		cf := mobile_sdk.NewConfig("https://api.iot.10086.cn", "PMMxeJGqamJw7Jrh13361", "mUzJa4znlE7f9ZtdIReVFMFubUzx2vs6")
+//		res, err2 := cf.ApiRequest("/v5/ec/query/sim-basic-info", &mobile_sdk.SimBasicInfoReq{
+//			Transid: cf.TransID,
+//			Token:   token,
+//			//Msisdn:  "1442077770000", // 可选字段
+//			Iccid: "89860837132490270001", // 可选字段
+//			//Imsi:    "460240261864998",      // 可选字段
+//		})
+//		if err2 != nil {
+//			fmt.Printf(err2.Error())
+//			return
+//		}
+//		fmt.Println(res)
 //	}
-//	fmt.Println(request.Data.Token)
-//	token := request.Data.Token
-//	cf := mobile_sdk.NewConfig("https://api.iot.10086.cn", "PMMxeJGqamJw7Jrh13361", "mUzJa4znlE7f9ZtdIReVFMFubUzx2vs6")
-//	res, err2 := cf.ApiRequest("/v5/ec/query/sim-basic-info", &mobile_sdk.SimBasicInfoReq{
-//		Transid: cf.TransID,
-//		Token:   token,
-//		//Msisdn:  "1442077770000", // 可选字段
-//		Iccid: "89860837132490270001", // 可选字段
-//		//Imsi:    "460240261864998",      // 可选字段
-//	})
-//	if err2 != nil {
-//		fmt.Printf(err2.Error())
-//		return
-//	}
-//	fmt.Println(res)
-//}
+func GenerateOrderID() (string string) {
+	currentTime := time.Now().Format("20060102150405")
+	//rand.Seed(time.Now().UnixNano())
+	str, _ := gonanoid.Generate("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 4)
+	num, _ := gonanoid.Generate("3456789", 6)
+	return fmt.Sprintf("%s%s%s", num, currentTime, str)
+}
 
 func main() {
 	//Tp := mobile_sdk.NewTP2Config("https://ac.buleideiot.com/api/get-chinamobile-onelink-token", "sj4xACNePCXgZARj", "22")
@@ -101,15 +112,24 @@ func main() {
 	//}
 	//fmt.Println(res)
 
-	client := tianyi.NewTianyiClient("http://ww.fengye2.tianiot.com", "2430", "RMypoSLJjUQ7iaZskl1W3qUFR")
+	//client := tianyi.NewTianyiClient("http://ww.fengye2.tianiot.com", "2430", "RMypoSLJjUQ7iaZskl1W3qUFR")
+	client := tianyi.NewTianyiClient("http://ww.asyw.tianiot.com", "4393", "EPrQdQFEGoz8xr5hAdsEpxIS6")
 
-	//// 校验请求
-	//verifyResp, err := client.PostVerification()
-	//fmt.Println("校验返回:", verifyResp, "错误:", err)
+	// 校验请求
+	verifyResp, err := client.PostVerification()
+	fmt.Println("校验返回:", verifyResp, "错误:", err)
 
 	// 获取卡板信息
-	cardResp, err := client.GetCardInfo("89860859182490278346")
-	fmt.Println("卡板信息返回:", cardResp, "错误:", err)
+	//cardResp, err := client.GetCardInfo("898608662825D0696763")
+	//cardResp, err := client.GetCardInfo("12000014")
+	//fmt.Println("卡板信息返回:", cardResp, "错误:", err)
+	order, err := client.PlaceOrder("12000014", "7542", 1, GenerateOrderID())
+	if err != nil {
+		log.Println("PlaceOrder", err)
+		return
+	}
+	data, _ := json.Marshal(&order)
+	fmt.Println(string(data))
 	//// 批量查卡板信息：用 iccids
 	//resp1, _ := client.GetBatchCardInfo(
 	//	[]string{"89860859182490278346"},
@@ -117,7 +137,7 @@ func main() {
 	//)
 	//fmt.Println("批量卡板信息返回（iccids）:", resp1)
 	//
-	//sim, err := client.RefreshSim("89860859182490278346")
+	//sim, err := client.RefreshSim("181238344")
 	//if err != nil {
 	//	return
 	//}

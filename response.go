@@ -206,6 +206,15 @@ type SimGprsStatusResetRes struct {
 	Message string        `json:"message"`
 	Result  []interface{} `json:"result"`
 }
+type SimRealNameRegRes struct {
+	Status  string `json:"status"`
+	Message string `json:"message"`
+	Result  []struct {
+		MiniParam interface{} `json:"miniParam"`
+		BusiSeq   string      `json:"busiSeq"`
+		Url       string      `json:"url"`
+	} `json:"result"`
+}
 type TPTokenRes struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
@@ -214,7 +223,6 @@ type TPTokenRes struct {
 	} `json:"data"`
 	Token string `json:"token"`
 }
-
 type TP3TokenRes struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`

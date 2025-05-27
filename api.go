@@ -239,3 +239,14 @@ func (c *Config) SimGprsStatusReset(req *SimBasicInfoReq) (res *SimGprsStatusRes
 	err = json.Unmarshal([]byte(request), &res)
 	return
 }
+
+// SimRealNameReg 实名登记
+func (c *Config) SimRealNameReg(req *SimBasicInfoReq) (res *SimRealNameRegRes, err error) {
+	request, err := c.ApiRequest("/v5/ec/secure/sim-real-name-reg", req)
+	if err != nil {
+		log.Printf("SimRealNameReg: %s", err)
+		return nil, err
+	}
+	err = json.Unmarshal([]byte(request), &res)
+	return
+}

@@ -47,29 +47,30 @@ func TestTPConfig_NewTP2Config(t *testing.T) {
 	params.Add("sign", Tp.Sign)
 	request, err := Tp.ApiGetRequest(params)
 	if err != nil {
+		fmt.Println(err)
 		return
 	}
 	fmt.Println(request.Data.Token)
 	token := request.Data.Token
 	cf = NewConfig("https://api.iot.10086.cn", "PMMxeJGqamJw7Jrh13361", "mUzJa4znlE7f9ZtdIReVFMFubUzx2vs6")
 	//res, err2 := cf.ApiRequest("/v5/ec/query/sim-manage-stop-restart-status", &SimBasicInfoReq{
-	res, err2 := cf.ApiRequest("/v5/ec/operate/sim-gprs-status-reset", &SimBasicInfoReq{ //0:关机 1:开机
-		//res, err2 := cf.ApiRequest("/v5/ec/query/on-off-status", &SimBasicInfoReq{ //0:关机 1:开机
-		//res, err2 := cf.ApiRequest("/v5/ec/query/sim-session", &SimBasicInfoReq{ //0:关机 1:开机
-		//res, err2 := cf.ApiRequest("/v5/ec/secure/sim-real-name-reg", &SimBasicInfoReq{
+	//res, err2 := cf.ApiRequest("/v5/ec/operate/sim-gprs-status-reset", &SimBasicInfoReq{ //0:关机 1:开机
+	//res, err2 := cf.ApiRequest("/v5/ec/query/on-off-status", &SimBasicInfoReq{ //0:关机 1:开机
+	//res, err2 := cf.ApiRequest("/v5/ec/query/sim-session", &SimBasicInfoReq{ //0:关机 1:开机
+	//res, err2 := cf.ApiRequest("/v5/ec/secure/sim-real-name-reg", &SimBasicInfoReq{
+	res, err2 := cf.ApiRequest("/v5/ec/secure/sim-real-name-reg", &SimBasicInfoReq{
 		//res, err2 := cf.ApiRequest("/v5/ec/query/card-bind-status", &SimBasicInfoReq{
 		//res, err2 := cf.ApiRequest("/v5/ec/query/sim-imei", &SimBasicInfoReq{
-		Transid:  cf.TransID,
-		Token:    token,
-		TestType: "0",
-		Msisdn:   "1442360450928", // 可选字段
-		//UrlType: "2",
-		//Msisdn:   "1442360450822", // 可选字段
-		//Iccid: "89860866182590580766", // 可选字段
+		Transid: cf.TransID,
+		Token:   token,
+		//TestType: "0",
+		//Msisdn:  "1442360450001", // 可选字段
+		UrlType: "6",
+		Iccid:   "89860866182590580849", // 可选字段
 		//Imsi:    "460240261864998",      // 可选字段
 	})
 	if err2 != nil {
-		fmt.Printf(err2.Error())
+		fmt.Println(err2)
 		return
 	}
 	fmt.Println(res)
